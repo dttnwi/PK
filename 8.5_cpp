@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class BankAccount {
+protected:
+    string accountNumber;
+    string ownerName;
+    double balance;
+public:
+    BankAccount(const string& num, const string& name, double balance)
+        : accountNumber(num), ownerName(name), balance(balance) {}
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "пополнение на " << amount << " успешно! текущий баланс: " << balance << endl;
+        } else {
+            cout << "сумма пополнения должна быть положительной!" << endl;
+        }
+    }
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "снятие " << amount << " успешно! текущий баланс: " << balance << endl;
+        } else if (amount > balance) {
+            cout << "недостаточно средств для снятия" << endl;
+        } else {
+            cout << "сумма снятия должна быть положительной" << endl;
+        }
+    }
+    double getBalance() const {
+        return balance;
+    }
+};
+class SavingsAccount : public BankAccount {
+private:
+    double Percent;
+public:
+    SavingsAccount(const string& num, const string& name, double balance, double perc)
+        : BankAccount(num, name, balance), Percent(perc) {}
+    void percent() {
+        double percents = balance * Percent / 100;
+        balance += percents;
+        cout << "начислены проценты: " << percents << ". текущий баланс: " << balance << endl;
+    }
+};
+
+int main() {
+    BankAccount account("212121", "пользователь 1", 2555.0);
+    account.deposit(300);
+    account.withdraw(400);
+    account.withdraw(2500);
+    
+    SavingsAccount savingsAccount("131313", "пользователь 2", 4500.0, 15.75);
+    savingsAccount.deposit(300);
+    savingsAccount.withdraw(100);
+    savingsAccount.percent();
+
+    return 0;
+}
