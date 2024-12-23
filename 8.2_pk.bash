@@ -9,8 +9,6 @@ if [ ! -d "$DIRECTORY" ]; then
     echo "Директория не найдена! :("
     exit 1
 fi
-
-# Поиск файлов с указанным расширением
 FILES=$(find "$DIRECTORY" -type f -name "*.$RACSHIRENIE")
 if [ -z "$FILES" ]; then
     echo "Файлы с расширением $RACSHIRENIE не найдены. :("
