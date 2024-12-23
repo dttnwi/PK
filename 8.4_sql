@@ -27,7 +27,7 @@ BEGIN
     ELSIF operation = 'REMOVE' THEN
         IF (SELECT quantity FROM products WHERE id = product_id) >= qty THEN
             UPDATE products
-            SET quantity = quantity - qty  -- Используем переданное количество
+            SET quantity = quantity - qty
             WHERE id = product_id;
             INSERT INTO operations_log (product_id, operation, quantity)
             VALUES (product_id, operation, qty);
